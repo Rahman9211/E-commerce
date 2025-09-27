@@ -1,6 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useContext } from 'react';
+import { useParams } from 'react-router-dom'
+import { ShopContext } from '../context/ShopContext';
 
 const Product = () => {
+
+  const {productId} = useParams();
+  // console.log(productId)
+  const {products} = useContext(ShopContext);
+  const [productData,setPorductData] = useState(false)
+
+  const fetchProductData = async ()=>{
+
+    products.map((item)=>{
+      if (item._id === productId){
+        setPorductData(item)
+        console.log(item)
+        return null;
+      }
+    })
+
+  }
+
+  useEffect(()=>{
+    fetchProductData();
+  },[productId,products])
+
+
   return (
     <div>Product</div>
   )
@@ -30,6 +56,7 @@ export default Product
 //     const {productId} = useParams() ;
 //     const {products, Currency, addTocart}  = useContext(ShopContext) ;
 //     const [productData, setPorductData] = useState() ;
+
 //     const [image, setImage] = useState('') ;
 //     const [size, setSize] = useState('') ;
 
